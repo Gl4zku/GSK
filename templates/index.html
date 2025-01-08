@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Site</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">News Portal</a></h1>
+        <nav>
+            <a href="/">Главная</a>
+            {% if 'user_id' in session %}
+                <a href="/profile">Профиль</a>
+                <a href="/logout">Выйти</a>
+            {% else %}
+                <a href="/login">Вход</a>
+                <a href="/register">Регистрация</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="news-container">
+        {% for news in news %}
+        <div class="news-panel">
+            <a href="/news/{{ news.id }}">
+                {% if news.preview_image %}
+                <img src="{{ url_for('static', filename='uploads/' + news.preview_image) }}" alt="Preview">
+                {% else %}
+                <img src="{{ url_for('static', filename='default.png') }}" alt="Default Image">
+                {% endif %}
+                <div class="title">{{ news.title }}</div>
+                <div class="views">
+                    <img src="{{ url_for('static', filename='icons/view_icon.png') }}" alt="Views Icon">
+                    {{ news.views }} просмотров
+                </div>
+                <div class="excerpt">{{ news.content[:50] }}...</div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

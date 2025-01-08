@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    <h2>Профиль пользователя</h2>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Роль:</strong> {{ user.role }}</p>
+    
+    <h3>Ваши новости</h3>
+    {% if news %}
+        <ul>
+            {% for item in news %}
+                <li>
+                    <a href="{{ url_for('view_news', news_id=item.id) }}">{{ item.title }}</a> 
+                    <span>— {{ item.created_at.strftime('%d-%m-%Y') }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Вы еще не добавили ни одной новости.</p>
+    {% endif %}
+
+    <a href="{{ url_for('dashboard') }}" class="btn">Добавить новость</a>
+{% endblock %}

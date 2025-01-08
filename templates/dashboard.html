@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Личный кабинет</h2>
+<h3>Добавить новость:</h3>
+<form method="POST" action="{{ url_for('dashboard') }}" enctype="multipart/form-data">
+    <label for="title">Заголовок:</label>
+    <input type="text" id="title" name="title" required>
+    <br>
+    <label for="content">Контент:</label>
+    <textarea id="content" name="content" required></textarea>
+    <br>
+    <label for="preview_image">Превью-изображение:</label>
+    <input type="file" id="preview_image" name="preview_image">
+    <br>
+    <label for="content_images">Дополнительные изображения:</label>
+    <input type="file" id="content_images" name="content_images" multiple>
+    <br>
+    <button type="submit">Добавить</button>
+</form>
+<h3>Список новостей:</h3>
+<ul>
+    {% for item in news %}
+        <li><strong>{{ item.title }}</strong></li>
+    {% endfor %}
+</ul>
+{% endblock %}
