@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Редактировать новость</h2>
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">Заголовок</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ news.title }}" required>
+    </div>
+    <div class="form-group">
+        <label for="content">Содержание</label>
+        <textarea class="form-control" id="content" name="content" rows="5" required>{{ news.content }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="preview_image">Изображение превью</label>
+        <input type="file" class="form-control-file" id="preview_image" name="preview_image">
+        {% if news.preview_image %}
+        <img src="{{ url_for('static', filename='uploads/' ~ news.preview_image) }}" alt="Preview Image" class="img-thumbnail mt-2" width="200">
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="content_images">Изображения содержимого</label>
+        <input type="file" class="form-control-file" id="content_images" name="content_images" multiple>
+        {% if content_images %}
+        <div class="mt-2">
+            {% for image in content_images %}
+            <img src="{{ url_for('static', filename='uploads/' ~ image) }}" alt="Content Image" class="img-thumbnail"
+::contentReference[oaicite:0]{index=0}
+ 

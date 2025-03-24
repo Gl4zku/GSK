@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ news.title }}</h1>
+
+{% if news.preview_image %}
+    <img src="{{ url_for('static', filename='uploads/' + news.preview_image) }}" alt="Preview Image">
+{% endif %}
+
+<p>
+    {% if news.translated_content %}
+    {{ news.translated_content }}
+{% else %}
+    {{ news.content }}
+{% endif %}
+</p>
+
+<form action="{{ url_for('translate_news', news_id=news.id) }}" method="POST">
+    <button type="submit">{{ t('translate') }}</button>
+</form>
+
+<small>{{ t('published_on') }} {{ news.created_at.strftime('%d-%m-%Y') }}</small>
+{% endblock %}

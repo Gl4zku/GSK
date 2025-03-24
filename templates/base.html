@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ t('home') }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1><a href="/">{{ t('home') }}</a></h1>
+        <nav>
+            <a href="/">{{ t('home') }}</a>
+            {% if current_user %}
+                <a href="/profile">{{ t('profile') }}</a>
+                {% if current_user.role in ['moder', 'admin', 'superadmin'] %}
+                    <a href="/admin_panel">{{ t('admin_panel') }}</a>
+                {% endif %}
+                <a href="/logout">{{ t('logout') }}</a>
+            {% else %}
+                <a href="/login">{{ t('login') }}</a>
+                <a href="/register">{{ t('register') }}</a>
+            {% endif %}
+            <form action="/set_language" method="POST" class="language-form">
+                <select name="language" onchange="this.form.submit()">
+                    <option value="ru" {% if session.get('language') == 'ru' %}selected{% endif %}>Русский</option>
+                    <option value="en" {% if session.get('language') == 'en' %}selected{% endif %}>English</option>
+                    <option value="es" {% if session.get('language') == 'es' %}selected{% endif %}>Español</option>
+                    <option value="zh" {% if session.get('language') == 'zh' %}selected{% endif %}>中文</option>
+                </select>
+            </form>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

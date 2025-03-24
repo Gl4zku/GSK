@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ Панель</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Админ Панель</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/dashboard">Панель управления</a>
+            <a href="/logout">Выйти</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Управление пользователями</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Роль</th>
+                <th>Действия</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <a href="/ban_user/{{ user.id }}">Бан</a> | 
+                    <a href="/change_role/{{ user.id }}">Изменить роль</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
+</body>
+</html>

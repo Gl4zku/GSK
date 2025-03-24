@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ t('last_news') }}{% endblock %}
+
+{% block content %}
+    <h1>{{ t('last_news') }}</h1>
+
+    <div class="news-container">
+        {% if news %}
+            {% for item in news %}
+            <div class="news-item">
+                <h2><a href="{{ url_for('news_detail', news_id=item.id) }}">{{ item.title }}</a></h2>
+
+                {% if item.preview_image %}
+                <img src="{{ url_for('static', filename='uploads/' + item.preview_image) }}" alt="Preview Image" class="news-preview">
+                {% endif %}
+
+                <p>{{ item.content[:150] }}...</p>
+                <small>{{ t('published_on') }} {{ item.created_at.strftime('%d-%m-%Y') }}</small>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>{{ t('no_news') }}</p>
+        {% endif %}
+    </div>
+{% endblock %}
